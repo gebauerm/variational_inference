@@ -1,1 +1,1 @@
-# variationa-_inference
+# variational_inference
