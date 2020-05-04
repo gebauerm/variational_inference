@@ -1,6 +1,7 @@
 # Reference: https://arxiv.org/pdf/1601.00670.pdf
 # https://ssl2.cms.fu-berlin.de/ewi-psy/einrichtungen/arbeitsbereiche/computational_cogni_neurosc/PMFN/15-Variational-inference.pdf
 # https://zhiyzuo.github.io/VI/
+# http://www.cs.uoi.gr/~arly/papers/SPM08.pdf
 import numpy as np
 import math
 from scripts.utils import *
@@ -21,7 +22,7 @@ sigma = np.array([1]*k) # this variance is known
 
 
 # number of instances
-i = 2000
+i = 5000
 c_probas = np.array([1/k]*k)
 
 # construct probability model
@@ -75,7 +76,7 @@ for iter in range(iterations):
     # Second Component e_log_p(ci)
     e_log_p_c = -i*math.log(k)
     # Third Component e_log_p(xi|ci_mu)
-    e_log_x = sum([sum([-phi_q[idx][idk]*x[idx]*mu_est[idk] + phi_q[idx][idk]*mu_est[idk]**2/2 for idx, _ in enumerate(x)])
+    e_log_x = sum([sum([-phi_q[idx][idk]*x[idx]**2/2*sigma[idk]+phi_q[idx][idk]*x[idx]*mu_est[idk]/sigma[idk] - phi_q[idx][idk]*mu_est[idk]**2/2*sigma[idk] for idx, _ in enumerate(x)])
                    for idk in range(k)])
     # Forth Component e_log_q(c_i | phi_i)
     e_log_p_ci = sum([sum([phi_q[idx][idk]*math.log(phi_q[idx][idk]) for idk in range(k)]) for idx in range(i)])
