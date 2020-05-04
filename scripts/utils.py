@@ -6,7 +6,10 @@ import plotly.graph_objects as go
 import numpy as np
 from scipy import stats
 
-def plot_elbo(values: List):
+def plot_elbo(values: List, log_vals=False):
+
+    if log_vals:
+        values = [-np.log(np.abs(value)) for value in values]
     values = pd.DataFrame({
         "Iteration": list(range(len(values))),
         "ELBO":values})

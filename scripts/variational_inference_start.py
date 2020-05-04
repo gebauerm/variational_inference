@@ -94,7 +94,7 @@ for iter in range(iterations):
         if np.abs(elbo_vals[iter-1] - elbo) < 0.01:
             break
 
-fig_elbo = plot_elbo(elbo_vals)
+fig_elbo = plot_elbo(elbo_vals, True)
 fig_elbo.show()
 print(f"Estimated Mean Vals: {mu_est}")
 print(f"Actual Mean Vals: {mu}")
