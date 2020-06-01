@@ -11,6 +11,9 @@ scipy = "*"
 plotly = "*"
 pandas = "*"
 tqdm = "*"
+psutil = "*"
+ipywidgets = ">=7.5"
+jupyterlab = "*"
 
 [requires]
 python_version = "3.7"
