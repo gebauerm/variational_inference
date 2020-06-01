@@ -5,15 +5,20 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 from scipy import stats
+import seaborn as sns
 
-def plot_elbo(values: List, log_vals=False):
+
+def plot_elbo(values: List, log_vals=False, seaborn=False):
 
     if log_vals:
         values = [-np.log(np.abs(value)) for value in values]
     values = pd.DataFrame({
         "Iteration": list(range(len(values))),
         "ELBO":values})
-    fig = px.line(values, x="Iteration", y="ELBO", title='Variational Inference Convergence')
+    if seaborn:
+        fig = sns.lineplot(data=values, x="Iteration", y="ELBO")
+    else:
+        fig = px.line(values, x="Iteration", y="ELBO", title='Variational Inference Convergence')
     return fig
 
 
