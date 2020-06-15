@@ -99,22 +99,3 @@ print(f"Actual Mean Vals: {mu}")
 
 #fig_2 = plot_distributions(x, targets=distribution_labels, mu_values=m_q)id
 #fig_2.show()
-
-
-def calculate_elbo(x, m, s, mu_p, sigma_p ):
-
-
-
-    e_p_mu_k = sum([mu_p[idk]**2/sigma_p[idk] for idk in range(k)])
-    # Second Component e_log_p(ci)
-    e_log_p_c = -i*math.log(k)
-    # Third Component e_log_p(xi|ci_mu)
-    e_log_x = sum([sum([-phi_q[idx][idk]*x[idx]**2/2*sigma_p[idk]+phi_q[idx][idk]*x[idx]*mu_est[idk]/sigma_p[idk] - phi_q[idx][idk]*mu_est[idk]**2/2*sigma_p[idk] for idx, _ in enumerate(x)])
-                   for idk in range(k)])
-    # Forth Component e_log_q(c_i | phi_i)
-    e_log_p_ci = sum([sum([phi_q[idx][idk]*math.log(phi_q[idx][idk]) for idk in range(k)]) for idx in range(i)])
-    # Fith Component e_log_q_mu_k|m_k,s_k)
-    e_log_mu_k_q = sum([math.log(s_est[idk])/2 for idk in range(k)]) # here it might be one according to princton
-    # compute elbo
-    elbo = e_p_mu_k + e_log_p_c+e_log_x - e_log_p_ci -e_log_mu_k_q
-    return elbo
