@@ -1,7 +1,7 @@
 from typing import List, Dict, Union
 import numpy as np
 
-from src.utils.descriptors import NotNoneAttribute, NonNegativeAttribute
+from variational_inference.utils import NotNoneAttribute, NonNegativeAttribute
 
 
 class SimpleGMM:

@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='variational_inference',
     version='0.1.0',
-    packages=['src'],
+    packages=['variational_inference'],
     url='',
     license='',
     author='Michael Gebauer',

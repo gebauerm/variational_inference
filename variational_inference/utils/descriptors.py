@@ -57,7 +57,7 @@ class NotNoneAttribute(Validated):
     """
     def validate(self, instance, value):
         if value is None:
-            raise ValueError("value cannot be None.")
+            raise ValueError("value can not be None.")
         return value
 
 
