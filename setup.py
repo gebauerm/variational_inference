@@ -2,11 +2,12 @@ from distutils.core import setup
 
 setup(
     name='variational_inference',
-    version='0.0.1',
+    version='0.1.0',
     packages=['src'],
     url='',
     license='',
-    author='michael',
+    author='Michael Gebauer',
     author_email='gebauerm23@gmail.com',
-    description=''
+    description='',
+    install_requires=[]
 )
