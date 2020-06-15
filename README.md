@@ -1,4 +1,6 @@
 # variational_inference
+[![gebauerm](https://circleci.com/gh/gebauerm/variational_inference.svg?style=shield)](https://app.circleci.com/pipelines/github/gebauerm/variational_inference)
+
 
 This is a project for experimenting with variational inference and design patterns in software development.
 The goal is to get familiar with approximate inference and find strategies for improvements in the optimization 
@@ -45,6 +47,12 @@ If you want to install a new package install it via ```pipenv install <packageNa
 in the "Pipfile".
 
 Visualize package dependencies via ```pipenv graph```.
+
+### Tests
+
+Tests are run in a CI Pipeline on https://circleci.com/.
+
+To execute tests locally just run ```pytest -v test/```
 
 ## Authors
 
