@@ -85,3 +85,4 @@ If you use this repository please cite with:
 * http://retiredparkingguard.com/posts/2019-06-25-variational-inference-part-1-cavi.html#org69a9b59
 * https://www.cs.princeton.edu/courses/archive/fall11/cos597C/
 * https://lilianweng.github.io/lil-log/2018/08/12/from-autoencoder-to-beta-vae.html
+* https://github.com/rajcscw/pytorch-optimize
