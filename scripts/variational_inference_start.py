@@ -97,5 +97,5 @@ fig_elbo.show()
 print(f"Estimated Mean Vals: {m_q}")
 print(f"Actual Mean Vals: {mu}")
 
-#fig_2 = plot_distributions(x, targets=distribution_labels, mu_values=m_q)id
-#fig_2.show()
+fig_2 = (x, targets=distribution_labels, mu_values=m_q)id
+fig_2.show()
