@@ -48,7 +48,7 @@ in the "Pipfile".
 
 Visualize package dependencies via ```pipenv graph```.
 
-### Tests
+## Tests
 
 Tests are run in a CI Pipeline on https://circleci.com/.
 
