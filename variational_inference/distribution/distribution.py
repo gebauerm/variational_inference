@@ -1,0 +1,1 @@
+# TODO: define classes for every distribution needed so far to store parameters and random data generation functionality
