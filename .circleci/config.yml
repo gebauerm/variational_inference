@@ -3,8 +3,8 @@ jobs:
   build:
     branches:
       only:
-        master
-        develop
+        - master
+        - develop
     docker:
       - image: circleci/python:3.7
     working_directory: ~/repo
