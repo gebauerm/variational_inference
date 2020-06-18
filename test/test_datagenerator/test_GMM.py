@@ -1,6 +1,4 @@
-import pytest
-
-from variational_inference.model.datagenerator.GMM import SimpleGMM
+from variational_inference.datagenerator.GMM import SimpleGMM
 
 
 class TestGMM:

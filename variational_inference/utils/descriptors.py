@@ -73,5 +73,7 @@ class MutableAttribute(Validated):
     A descriptor for a class attribute, which needs to be a list.
     """
     def validate(self, instance, value):
-        if type(value) is not tuple or type(value) is not list:
+        if type(value) is tuple or type(value) is list:
+            return value
+        else:
             raise ValueError("value needs to be a tuple or list")
