@@ -31,6 +31,9 @@ class Distribution(abc.ABC):
 
 
 class NormalDistribution(Distribution):
+    """
+    A class for normal distributions.
+    """
     sigma_sq = MutableAttribute()
     mu = MutableAttribute()
 
@@ -50,6 +53,9 @@ class NormalDistribution(Distribution):
 
 
 class CategoricalDistribution(Distribution):
+    """
+    A class for categorical distributions.
+    """
     probas = MutableAttribute()
 
     def __init__(self, probas):
