@@ -23,10 +23,7 @@ class AutoStorage:
             return getattr(instance, self.storage_name)
 
     def __set__(self, instance, value):
-        if value is None:
-            ValueError(f"You have to set a value.")
-        else:
-            setattr(instance, self.storage_name, value)
+        setattr(instance, self.storage_name, value)
 
 
 class Validated(AutoStorage, abc.ABC):

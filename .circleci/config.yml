@@ -21,4 +21,5 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest -v test/
+            pytest -v --cov=./variational_inference/ test/
+            codecov --token=e6a5f5e1-dbad-46a4-99c3-2a6fbac6d432

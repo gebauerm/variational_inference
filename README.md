@@ -1,6 +1,6 @@
 # variational_inference
 [![gebauerm](https://circleci.com/gh/gebauerm/variational_inference.svg?style=shield)](https://app.circleci.com/pipelines/github/gebauerm/variational_inference)
-
+[![codecov](https://codecov.io/gh/gebauerm/variational_inference/branch/master/graph/badge.svg)](https://codecov.io/gh/gebauerm/variational_inference)
 
 This is a project for experimenting with variational inference and design patterns in software development.
 The goal is to get familiar with approximate inference and find strategies for improvements in the optimization 
