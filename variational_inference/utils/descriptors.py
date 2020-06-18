@@ -66,3 +66,12 @@ class NonNegativeAttribute(Validated):
         if value < 0:
             raise ValueError("value can not be below zero")
         return value
+
+
+class MutableAttribute(Validated):
+    """
+    A descriptor for a class attribute, which needs to be a list.
+    """
+    def validate(self, instance, value):
+        if type(value) is not tuple or type(value) is not list:
+            raise ValueError("value needs to be a tuple or list")
