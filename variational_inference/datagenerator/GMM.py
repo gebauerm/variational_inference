@@ -3,6 +3,8 @@ import numpy as np
 
 from variational_inference.utils.descriptors import NotNoneAttribute, NonNegativeAttribute
 
+# TODO: incorporate distribution classes and think of a interface
+
 
 class SimpleGMM:
     cluster = NotNoneAttribute()
