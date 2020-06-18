@@ -13,6 +13,10 @@ class DistributionType(Enum):
 
 class Distribution(abc.ABC):
 
+    """
+    An Interface for all Distributions.
+    """
+
     @abc.abstractmethod
     def sample(self, samples: int):
         pass
