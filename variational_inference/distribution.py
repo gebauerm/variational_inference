@@ -31,6 +31,7 @@ class Distribution(abc.ABC):
 
 
 class NormalDistribution(Distribution):
+    # TODO: needs to support covariance matrix
     """
     A class for normal distributions.
     """

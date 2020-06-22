@@ -14,7 +14,7 @@ data = data_gen_simpleGMM.generate_data(2000)
 
 
 # ======== Defining a Prior over the given Data =====
-mixture_distribution = NormalDistribution(mu=[0, 0, 0, 0], sigma_sq=[1, 1, 1, 1])
+mixture_distribution = NormalDistribution(mu=[0, 0, 0, 0], sigma_sq=[1, 10, 1, 10])
 mixture_assignments = CategoricalDistribution(probas=[1/4]*4)
 prior_model = SimpleGMM(mixture_distribution=mixture_distribution, mixture_assignments=mixture_assignments)
 
