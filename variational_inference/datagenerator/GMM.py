@@ -35,7 +35,7 @@ class SimpleGMM:
 
         # latent distributions
         self.mixture_distribution = mixture_distribution
-        self.mixture_assignments = mixture_assignments
+        self.mixture_assignments_dist = mixture_assignments
 
         # observation_distribution
         self.x_sigma_sq = x_sigma_sq
@@ -47,7 +47,7 @@ class SimpleGMM:
 
         """
         mu_vals = self.mixture_distribution.sample(samples=1)
-        c = self.mixture_assignments.sample(samples=samples)
+        c = self.mixture_assignments_dist.sample(samples=samples)
         distribution_labels = [f"dist_{np.where(c[row, :] == 1)[0][0]}" for row in range(c.shape[0])]
         x_mu = c.dot(mu_vals.T)
         x = [np.random.normal(mu_value, self.x_sigma_sq, 1) for mu_value in x_mu]

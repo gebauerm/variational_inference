@@ -1,5 +1,5 @@
 import abc
-
+import numpy as np
 
 class AutoStorage:
     """
@@ -73,7 +73,7 @@ class MutableAttribute(Validated):
     A descriptor for a class attribute, which needs to be a list.
     """
     def validate(self, instance, value):
-        if type(value) is tuple or type(value) is list:
+        if type(value) is tuple or type(value) is list or type(value) is np.ndarray:
             return value
         else:
             raise ValueError("value needs to be a tuple or list")
