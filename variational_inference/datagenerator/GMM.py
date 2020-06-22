@@ -46,10 +46,10 @@ class SimpleGMM:
         Returns:
 
         """
-        mu_vals = self.mixture_distribution.sample(samples=1)
+        self.mu_vals = self.mixture_distribution.sample(samples=1)
         c = self.mixture_assignments_dist.sample(samples=samples)
         distribution_labels = [f"dist_{np.where(c[row, :] == 1)[0][0]}" for row in range(c.shape[0])]
-        x_mu = c.dot(mu_vals.T)
+        x_mu = c.dot(self.mu_vals.T)
         x = [np.random.normal(mu_value, self.x_sigma_sq, 1) for mu_value in x_mu]
         generated_data = {
             "x": x,

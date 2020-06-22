@@ -8,20 +8,21 @@ from variational_inference.datagenerator.GMM import SimpleGMM
 class SimpleCAVI:
     def __init__(self, probabilistic_model: SimpleGMM, data):
         self.probabilistic_model = probabilistic_model
+        self.data = data
         # TODO: necessary parameters need to be retreived independend of probability models
         self.cluster = len(self.probabilistic_model.mixture_distribution.mu)
 
         # surrogate probability
         self.q_mu = NormalDistribution(mu=np.random.normal(0, 1, self.cluster),
                                        sigma_sq=np.random.normal(1, 1, self.cluster)**2)
-        # TODO: this may cause problems since it may be the wrong distribution
+        # TODO:  this needs more generalization it currently also makes no sense
         self.q_c = CategoricalDistribution(probas=np.array([1/self.cluster]*self.cluster))
-        self.phi = self.q_c.sample(samples=len(data))
-        self.data = data
+        phi_q_logit = np.random.uniform(0, 1, (len(data), self.cluster))
+        self.phi = np.apply_along_axis(lambda x: x / x.sum(), 1, phi_q_logit)
 
     def infer(self):
         # Start optimization
-        # set custer assignments for every kth entry
+        # set cluster assignments for every kth entry
         for idx, x_i in enumerate(self.data):
             q_c_assignments_row = self.phi[idx, :]
             for idk in range(self.q_c.probas.shape[0]):
@@ -38,4 +39,4 @@ class SimpleCAVI:
 
             # calculate s_q for every k
             self.q_mu.sigma_sq[idk] = 1 / (1 / self.probabilistic_model.x_sigma_sq + sum_denominator)
-        return self.q_mu, self.phi
+        return self.q_mu.mu, self.phi
