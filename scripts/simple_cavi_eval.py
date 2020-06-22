@@ -26,6 +26,7 @@ for iteration in tqdm(range(iterations)):
 
     q_mu, phi = simple_cavi.infer()
 
-print(f"Real Params:\n{data_gen_simpleGMM.mu_vals}")
-print(f"Estimated Params: {q_mu}")
-print(phi)
+print(f"Real Mu:\n{data_gen_simpleGMM.mu_vals}")
+print(f"Estimated Mu: \n{q_mu}")
+print(f"Estimated phis:\n{phi}")
+

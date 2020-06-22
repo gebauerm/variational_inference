@@ -15,9 +15,12 @@ class TestSimpleCAVI:
         prior_model = SimpleGMM(mixture_distribution=mixture_distribution, mixture_assignments=mixture_assignments)
         simple_cavi = SimpleCAVI(probabilistic_model=prior_model, data=test_data["x"])
 
-        params = simple_cavi.infer()
+        est_mu, phi = simple_cavi.infer()
 
-        assert params is not None
+        assert est_mu is not None
+        assert phi is not None
+        for phi_row in phi:
+            assert round(sum(phi_row), 2) == 1
 
 
 if __name__ == "__main__":

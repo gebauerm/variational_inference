@@ -7,6 +7,11 @@ from variational_inference.datagenerator.GMM import SimpleGMM
 
 class SimpleCAVI:
     def __init__(self, probabilistic_model: SimpleGMM, data):
+        """
+        A frst very simple class for the CAVI Algorithm deriven by Bishop
+        :param probabilistic_model:
+        :param data:
+        """
         self.probabilistic_model = probabilistic_model
         self.data = data
         # TODO: necessary parameters need to be retreived independend of probability models
@@ -21,22 +26,27 @@ class SimpleCAVI:
         self.phi = np.apply_along_axis(lambda x: x / x.sum(), 1, phi_q_logit)
 
     def infer(self):
-        # Start optimization
-        # set cluster assignments for every kth entry
+        """
+        Estimates values for all given parameters.
+        :return:
+        """
+        self.calculate_phi()
+        self.calcilate_q_mu()
+        return self.q_mu.mu, self.phi
+
+    def calculate_phi(self):
         for idx, x_i in enumerate(self.data):
             q_c_assignments_row = self.phi[idx, :]
             for idk in range(self.q_c.probas.shape[0]):
                 q_c_assignments_row[idk] = math.exp(self.q_mu.mu[idk] * x_i -
                                                     (self.q_mu.mu[idk] ** 2 + 2 * self.q_mu.sigma_sq[idk]) / 2)
-            self.phi[idx, :] = q_c_assignments_row / q_c_assignments_row.sum()
+            self.phi[idx] = q_c_assignments_row / q_c_assignments_row.sum()
 
+    def calcilate_q_mu(self):
         for idk in range(self.cluster):
-            # calculate m_q for every k
             sum_nominator = sum(
-                [self.phi[idx][idk] * self.data[idx] for idx, x_idx in enumerate(self.data)])  # check if convergence doesnt work
+                [self.phi[idx][idk] * self.data[idx] for idx, x_idx in enumerate(self.data)])
             sum_denominator = sum([self.phi[idx][idk] for idx, x in enumerate(self.data)])
             self.q_mu.mu[idk] = sum_nominator / (1 / self.probabilistic_model.x_sigma_sq + sum_denominator)
 
-            # calculate s_q for every k
             self.q_mu.sigma_sq[idk] = 1 / (1 / self.probabilistic_model.x_sigma_sq + sum_denominator)
-        return self.q_mu.mu, self.phi
