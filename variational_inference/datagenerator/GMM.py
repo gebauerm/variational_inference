@@ -2,21 +2,19 @@ from typing import List, Dict, Union
 import numpy as np
 
 from variational_inference.utils.descriptors import NotNoneAttribute, NonNegativeAttribute
+from variational_inference.distribution import CategoricalDistribution, NormalDistribution
 
 # TODO: incorporate distribution classes and think of a interface
 
 
 class SimpleGMM:
-    cluster = NotNoneAttribute()
-    instances_num = NotNoneAttribute()
-    mu_sigma_sq = NonNegativeAttribute()
     x_sigma_sq = NonNegativeAttribute()
+    mixture_distribution = NotNoneAttribute()
+    mixture_assignments = NotNoneAttribute()
 
-    def __init__(self, cluster: int = None,
-                 mu_sigma_sq: float = 1,
-                 instances_num: int = None,
-                 mu_mean: float = 0,
-                 c_proba:List = None,
+    def __init__(self,
+                 mixture_distribution: NormalDistribution = None,
+                 mixture_assignments: CategoricalDistribution = None,
                  x_sigma_sq: float = 1):
         """
         This class is a data generator, which uses a gaussian mixture model. The generated data is defined as "x" and
@@ -35,31 +33,24 @@ class SimpleGMM:
             x_sigma_sq: the variance of P(x| mu, c)
         """
 
-        # managed attributes
-        self.cluster = cluster
-        self.instances_num = instances_num
-        self.mu_sigma_sq = mu_sigma_sq
+        # latent distributions
+        self.mixture_distribution = mixture_distribution
+        self.mixture_assignments = mixture_assignments
+
+        # observation_distribution
         self.x_sigma_sq = x_sigma_sq
 
-        # unmanaged attributes
-        self.mu_mean = mu_mean
-        self.c_proba = np.array([1/self.cluster]*self.cluster) if c_proba is None else np.array(c_proba)
-
-        # storage values
-        self.mu_vals = None
-
-    def generate_data(self) -> Dict[str, Union[List, List[str]]]:
+    def generate_data(self, samples: int) -> Dict[str, Union[List, List[str]]]:
         """
         Generates data from the given hyperparameters with a gaussian mixture model.
         Returns:
 
         """
-        # construct probability model
-        self.mu_vals = np.random.normal(self.mu_mean, self.mu_sigma_sq, self.cluster)
-        c = np.random.multinomial(n=1, pvals=self.c_proba, size=self.instances_num)
+        mu_vals = self.mixture_distribution.sample(samples=1)
+        c = self.mixture_assignments.sample(samples=samples)
         distribution_labels = [f"dist_{np.where(c[row, :] == 1)[0][0]}" for row in range(c.shape[0])]
-        x_mu = c.dot(self.mu_vals)
-        x = [np.random.normal(mu_value, self.x_sigma_sq, 1)[0] for mu_value in x_mu]
+        x_mu = c.dot(mu_vals.T)
+        x = [np.random.normal(mu_value, self.x_sigma_sq, 1) for mu_value in x_mu]
         generated_data = {
             "x": x,
             "distribution_labels": distribution_labels
