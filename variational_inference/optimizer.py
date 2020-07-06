@@ -6,10 +6,14 @@ from variational_inference.datagenerator.GMM import SimpleGMM
 
 
 class SimpleCAVI:
+    """
+    Probabilistic Optimization Algorithm for the Gaussian Mixtute Model Case.
+    The Algorithm tries to find the parameters of the latent Gaussian Distribution.
+    """
     def __init__(self, probabilistic_model: SimpleGMM, data):
         self.probabilistic_model = probabilistic_model
         self.data = data
-        # TODO: necessary parameters need to be retreived independend of probability models
+        # TODO: necessary parameters need to be retrieved independent of probability models
         self.cluster = len(self.probabilistic_model.mixture_distribution.mu)
 
         # surrogate probability
@@ -21,8 +25,10 @@ class SimpleCAVI:
         self.phi = np.apply_along_axis(lambda x: x / x.sum(), 1, phi_q_logit)
 
     def infer(self):
-        # Start optimization
-        # set cluster assignments for every kth entry
+        """
+        Starts the optimization procedure. For more info take a look at: https://arxiv.org/pdf/1601.00670.pdf
+        :return:
+        """
         for idx, x_i in enumerate(self.data):
             q_c_assignments_row = self.phi[idx, :]
             for idk in range(self.q_c.probas.shape[0]):
