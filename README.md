@@ -75,6 +75,11 @@ If you use this repository please cite with:
 }
 ```
 
+# To Do:
+
+* Implement Expected Lower Bound Calculation
+* Fix ELBO Issue and write a Class
+
 ## References
 
 * Blei, David M., Alp Kucukelbir, and Jon D. McAuliffe. “Variational Inference: A Review for Statisticians.” Journal of the American Statistical Association 112.518 (2017)
@@ -86,3 +91,4 @@ If you use this repository please cite with:
 * https://www.cs.princeton.edu/courses/archive/fall11/cos597C/
 * https://lilianweng.github.io/lil-log/2018/08/12/from-autoencoder-to-beta-vae.html
 * https://github.com/rajcscw/pytorch-optimize
+
